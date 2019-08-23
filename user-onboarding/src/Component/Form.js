@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Field, withFormik } from "formik";
-import App from 'App';
 import axios from 'axios';
 import * as Yup from 'yup';
 
 
 
-const onboardForm = ({errors, touched, values, status }) => {
+const OnboardForm = ({errors, touched, values, status }) => {
     const [people, setPeople] = useState([]);
     console.log("Writing", touched);
     useEffect(() => {
@@ -22,7 +21,7 @@ return (
             <Field type="text" name="name" placeholder="Name" />
             {touched.name && errors.name && (
                 <p className="errors">{errors.name}</p>
-            )};
+            )}
 
             <Field type="text" name="email" placeholder="Email" />
             {touched.email && errors.email && <p className="error">{errors.email}</p>}
@@ -30,8 +29,8 @@ return (
             <Field type="password" name="password" placeholder="Password" />
             {touched.password && errors.password && <p className="error">{errors.password}</p>}
             
-            <label className="checkbpx-container">
-                Vaccination
+            <label className="checkbox-container">
+                Terms of Services
                 <Field 
                 type="checkbox"
                 name="terms_of_service"
@@ -82,6 +81,6 @@ const FormikPeopleForm = withFormik ({
             })
             .catch(err => console.log("error"));
     }
-});
+})(OnboardForm);
 
 export default FormikPeopleForm;
