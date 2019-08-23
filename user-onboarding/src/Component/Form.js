@@ -1,12 +1,14 @@
+import React, { useState, useEffect } from 'react';
 import { Form, Field, withFormik } from "formik";
-import { useState, useEffect} from 'react';
+import App from 'App';
 import axios from 'axios';
-import * as yup from 'yup';
+import * as Yup from 'yup';
+
 
 
 const onboardForm = ({errors, touched, values, status }) => {
     const [people, setPeople] = useState([]);
-    console.log("this is touched", touched);
+    console.log("Writing", touched);
     useEffect(() => {
         if (status) {
         setPeople([...people, status])
@@ -41,8 +43,45 @@ return (
             <button type="submit">Submit!</button>
 
         </Form>
-    </div>
-)
-}
 
-export default onboardForm;
+        {people.map(person => (
+            <ul key={person.id}>
+                <li>Name: {person.name}</li>
+                <li>Email: {person.email}</li>
+                <li>Password: {person.password}</li>
+                <li>Terms of Services: {person.terms_of_service}</li>
+            </ul>
+        ))}
+    </div>
+);
+};
+
+const FormikPeopleForm = withFormik ({
+    mapPropsToValues({name, email, password,}) {
+        return {
+            name: name || "",
+            email: email || "",
+            password: password || "",
+        };
+    },
+
+    validationSchema: Yup.object().shape({
+        name: Yup.string().required("This is required"),
+        email: Yup.string().required("This is required"),
+        password: Yup.string().required("This is required"),
+        terms_of_service: Yup.string().required("This is required")
+    }),
+
+
+
+    handleSubmit(values, {setStatus}) {
+        axios
+            .post("https://reqres.in/api/users_", values)
+            .then(response => {
+                setStatus(response.data)
+            })
+            .catch(err => console.log("error"));
+    }
+});
+
+export default FormikPeopleForm;
