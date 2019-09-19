@@ -68,7 +68,7 @@ const FormikPeopleForm = withFormik ({
         name: Yup.string().required("Put your goverment name homie?"),
         email: Yup.string().required("Ayo lemme get that email"),
         password: Yup.string().required("I promise im not looking"),
-        terms_of_service: Yup.string().required("This is a blood contract you must accept")
+        terms_of_service: Yup.bool().required("This is a blood contract you must accept"),
     }),
 
 
