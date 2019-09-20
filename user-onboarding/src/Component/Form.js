@@ -28,6 +28,14 @@ return (
 
             <Field type="password" name="password" placeholder="Password" />
             {touched.password && errors.password && <p className="error">{errors.password}</p>}
+
+            <Field component="select"> 
+                <option>Please Choose an Option </option>
+                <option value="Full Stack Developer">Full Stack Developer</option>
+                <option value="Backend Developer">Backend Developer</option>
+                <option value="React Develpoper">React Developer</option>
+
+            </Field>
             
             <label className="checkbox-container">
                 Terms of Services
